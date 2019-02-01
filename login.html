@@ -1,13 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="login">
 <head>
+	<!-- 网页编码 -->
 	<meta charset="utf-8">
+	<!-- 网页标签标题 -->
 	<title>后台管理系统登录</title>
+	<!-- 网页标签图标 -->
 	<link rel="icon" type="image/x-icon" href="img/login_favicon.ico">
+	<!-- bootstrap的CSS样式 -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<!-- 自定义的CSS样式 -->
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<!-- bootstrap的JS文件 -->
+	<script src="js/bootstrap/bootstrap.js"></script>
+	<!-- angular的JS文件 -->
 	<script src="js/angular/angular.js"></script>
+	<!-- 自定义的JS文件 -->
+	<script src="js/login.js"></script>
 </head>
 <body>
-	<h1>超市后台管理系统登录</h1>
+	<form class="formStyle" ng-controller='formCtrl'>
+		<!-- 表单标题 -->
+		<div class="col-lg-12 text-center divStyle">
+			<h2>电影院后台管理系统登录</h2>
+		</div>
+		<!-- 账号输入框 -->
+		<div class="col-lg-12 divStyle">
+			<input class="form-control" type="text" ng-model="account" placeholder="账号" autofocus>
+		</div>
+		<!-- 密码输入框 -->
+		<div class="col-lg-12 divStyle">
+			<input class="form-control" type="password" ng-model="password" placeholder="密码">
+		</div>
+		<!-- 记住密码选择框 -->
+		<div class="col-lg-5 divStyle checkbox">
+			<label>
+				<input type="checkbox" ng-model="remember">记住密码
+			</label>
+		</div>
+		<!-- 登录按钮 -->
+		<div class="col-lg-12 divStyle">
+			<button class="btn btn-primary btn-block" ng-click="formSubmit()">登录</button>
+		</div>
+	</form>
 </body>
 </html>

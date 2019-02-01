@@ -1,0 +1,22 @@
+.divStyle {
+	margin-top: 60px;
+}
+
+.h2Style {
+	text-align: center;
+}
+
+.buttonStyle {
+	margin-left: 25px;
+}
+
+.inputStyle {
+	float: right;
+	margin-right: 25px;
+}
+
+.tableStyle {
+	margin-top: 25px;
+	margin-left: 25px;
+	margin-right: 25px;
+}

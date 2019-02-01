@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="hall">
+<head>
+	<meta charset="utf-8">
+	<title>电影院后台管理系统</title>
+	<link rel="icon" type="image/x-icon" href="img/index_favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/hall.css">
+	<script src="js/bootstrap/bootstrap.js"></script>
+	<script src="js/angular/angular.js"></script>
+	<!-- <script src="js/route.js"></script> -->
+	<script src="js/hall.js"></script>
+</head>
+<body ng-controller="hallController">
+	<!-- 页面顶部导航栏 -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+		<!-- 旧bootstrap导航栏
+		<a class="navbar-brand text-white font-weight-bold" href="#">后台管理系统</a>
+		<a class="nav-link text-white font-weight-bold" href="#">订单管理</a>
+		<a class="nav-link text-white font-weight-bold" href="#">场次管理</a>
+		<a class="nav-link text-white font-weight-bold" href="#">影厅管理</a>
+		<a class="nav-link text-white font-weight-bold" href="#">电影管理</a>
+		<a class="nav-link text-white font-weight-bold ml-auto" href="#">用户</a>
+		<button class="btn btn-danger font-weight-bold">退出</button> -->
+
+		<!-- 新angularJS导航栏 -->
+		<!-- 管理系统主页 -->
+		<a class="navbar-brand text-white font-weight-bold" href="{{navbar_brand.url}}">{{navbar_brand.name}}</a>
+		<!-- 各个管理页面 -->
+		<div ng-repeat="link in navbar_links">
+			<a class="nav-link text-white font-weight-bold" href="{{link.url}}">{{link.name}}</a>
+		</div>
+		<!-- 管理员头像 -->
+		<a class="nav-link text-white font-weight-bold ml-auto" href="{{navbar_user.url}}">{{navbar_user.name}}</a>
+		<!-- 退出按钮 -->
+		<button class="btn btn-danger font-weight-bold" ng-click="exit()">退出</button>
+	</nav>
+
+	<!-- 标题以及搜索框 -->
+	<div class="divStyle">
+		<h2 class="h2Style">影厅列表</h2>
+		<button class="btn btn-primary buttonStyle" ng-click="add()">新增影厅</button>
+		<input class="inputStyle" type="text" ng-model="search" placeholder="Search">
+	</div>
+
+	<!-- 表格 -->
+	<div class="tableStyle">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th ng-repeat="item in table_columns">{{item}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="data in table_rows | filter:search">
+					<td>{{data.scene_name}}</td>
+					<td>{{data.seat_row}}</td>
+					<td>{{data.seat_col}}</td>
+					<td>{{data.seat_num}}</td>
+					<td ng-if="data.seat_status == 1">使用中</td>
+					<td ng-if="data.seat_status == 2">维护中</td>
+					<td>
+						<button class="btn btn-primary" ng-click="use()">使用</button>
+						<button class="btn btn-primary" ng-click="maintain()">维护</button>
+						<button class="btn btn-primary" ng-click="edit()">编辑</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

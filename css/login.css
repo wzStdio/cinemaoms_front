@@ -1,0 +1,17 @@
+body {
+	background-image: url('../img/login_back.jpg');
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+.formStyle {
+	margin-top: 300px;
+	margin-left: 600px;
+	margin-right: auto;
+	height: 500px;
+	width: 400px;
+}
+
+.divStyle {
+	margin: 25px;
+}
