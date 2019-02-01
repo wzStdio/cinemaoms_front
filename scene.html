@@ -6,7 +6,11 @@
 	<link rel="icon" type="image/x-icon" href="img/index_favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/scene.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+	<script src="js/jquery/jquery-3.3.1.js"></script>
+	<script src="js/bootstrap/popper.js"></script>
 	<script src="js/bootstrap/bootstrap.js"></script>
+	<script src="js/bootstrap/bootstrap-datetimepicker.js"></script>
 	<script src="js/angular/angular.js"></script>
 	<!-- <script src="js/route.js"></script> -->
 	<script src="js/scene.js"></script>
@@ -36,11 +40,64 @@
 		<button class="btn btn-danger font-weight-bold" ng-click="exit()">退出</button>
 	</nav>
 
-	<!-- 标题以及搜索框 -->
+	<!-- 标题、模态框以及搜索框 -->
 	<div class="divStyle">
 		<h2 class="h2Style">场次列表</h2>
-		<button class="btn btn-primary buttonStyle" ng-click="add()">新增场次</button>
+		<button class="btn btn-primary buttonStyle" ng-click="add();init()">新增场次</button>
 		<input class="inputStyle" type="text" ng-model="search" placeholder="Search">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal" ng-model="obj">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<!-- 模态框标题 -->
+						<h4 class="modal-title">新增场次</h4>
+						<!-- 右上角关闭按钮 -->
+						<button type="button" class="close" ng-click="close()">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="form-inline">电影名称：
+								<input class="form-control center-block" type="text" value="{{obj.movie_name}}" ng-model="obj.movie_name">
+							</label>
+						</div>
+						<div class="form-group input-append date">
+							<label class="form-inline">播放时间：
+								<input class="form-control form_datetime" type="datetime" value="{{obj.movie_time}}" ng-model="obj.movie_time" readonly>
+							</label>
+						</div>
+						<div class="form-group">
+							<label class="form-inline">影厅名称：
+								<input class="form-control" type="text" value="{{obj.scene_name}}" ng-model="obj.scene_name">
+							</label>
+						</div>
+						<div class="form-group">
+							<label class="form-inline">金额：
+								<input class="form-control priceStyle" type="number" value="{{obj.movie_price}}" ng-model="obj.movie_price">
+							</label>
+						</div>
+						<div class="form-group dropdown">
+							<label class="form-inline">场次状态：
+								<label class="labelStyle" ng-if="obj.scene_status!=1 && obj.scene_status!=2">未选择</label>
+								<label class="labelStyle" ng-if="obj.scene_status==1">可预订</label>
+								<label class="labelStyle" ng-if="obj.scene_status==2">不可预订</label>
+								<button class="btn btn-primary dropdown-toggle ml-auto" data-toggle="dropdown">点击选择场次状态</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" ng-click="changeStatus(1)">可预订</a>
+									<a class="dropdown-item" ng-click="changeStatus(2)">不可预订</a>
+								</div>
+							</label>
+						</div>
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button class="btn btn-primary" ng-click="save()">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- 表格 -->
@@ -57,11 +114,11 @@
 					<td>{{data.movie_name}}</td>
 					<td>{{data.movie_time}}</td>
 					<td>{{data.scene_name}}</td>
-					<td>{{data.movie_price}}</td>
+					<td>￥{{data.movie_price}}</td>
 					<td ng-if="data.scene_status == 1">可预定</td>
 					<td ng-if="data.scene_status == 2">不可预定</td>
 					<td>
-						<button class="btn btn-primary" ng-click="edit(data.order_no)">编辑</button>
+						<button class="btn btn-primary" ng-click="edit(data, $index)">编辑</button>
 					</td>
 				</tr>
 			</tbody>

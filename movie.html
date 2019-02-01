@@ -6,7 +6,11 @@
 	<link rel="icon" type="image/x-icon" href="img/index_favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/movie.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+	<script src="js/jquery/jquery-3.3.1.js"></script>
+	<script src="js/bootstrap/popper.js"></script>
 	<script src="js/bootstrap/bootstrap.js"></script>
+	<script src="js/bootstrap/bootstrap-datetimepicker.js"></script>
 	<script src="js/angular/angular.js"></script>
 	<!-- <script src="js/route.js"></script> -->
 	<script src="js/movie.js"></script>
@@ -39,8 +43,57 @@
 	<!-- 标题以及搜索框 -->
 	<div class="divStyle">
 		<h2 class="h2Style">电影列表</h2>
-		<button class="btn btn-primary buttonStyle" ng-click="add()">新增电影</button>
+		<button class="btn btn-primary buttonStyle" ng-click="add();init()">新增电影</button>
 		<input class="inputStyle" type="text" ng-model="search" placeholder="Search">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal" ng-model="obj">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<!-- 模态框标题 -->
+						<h4 class="modal-title">新增电影</h4>
+						<!-- 右上角关闭按钮 -->
+						<button type="button" class="close" ng-click="close()">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="form-inline">电影名称：
+								<input class="form-control" type="text" value="{{obj.movie_name}}" ng-model="obj.movie_name">
+							</label>
+						</div>
+						<div class="form-group input-append date">
+							<label class="form-inline">上映时间：
+								<input class="form-control form_datetime" type="datetime" value="{{obj.movie_time}}" ng-model="obj.movie_time" readonly>
+							</label>
+						</div>
+						<div class="form-group">
+							<label class="form-inline">电影时长：
+								<input class="form-control" type="number" value="{{obj.movie_duration}}" ng-model="obj.movie_duration">
+							</label>
+						</div>
+						<div class="form-group dropdown">
+							<label class="form-inline">电影状态：
+								<label class="labelStyle" ng-if="obj.movie_status==1">即将上映</label>
+								<label class="labelStyle" ng-if="obj.movie_status==2">上映中</label>
+								<label class="labelStyle" ng-if="obj.movie_status==3">已下架</label>
+								<button class="btn btn-primary dropdown-toggle ml-auto" data-toggle="dropdown">点击选择上映状态</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" ng-click="changeStatus(1)">即将上映</a>
+									<a class="dropdown-item" ng-click="changeStatus(2)">上映</a>
+									<a class="dropdown-item" ng-click="changeStatus(3)">下架</a>
+								</div>
+							</label>
+						</div>
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button class="btn btn-primary" ng-click="save()">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- 表格 -->
@@ -56,14 +109,15 @@
 					<td>{{data.movie_no}}</td>
 					<td>{{data.movie_name}}</td>
 					<td>{{data.movie_time}}</td>
-					<td>{{data.movie_duration}}</td>
+					<td>{{data.movie_duration}}分钟</td>
 					<td ng-if="data.movie_status == 1">即将上映</td>
 					<td ng-if="data.movie_status == 2">上映中</td>
 					<td ng-if="data.movie_status == 3">已下架</td>
 					<td>
-						<button class="btn btn-primary" ng-click="release()">上映</button>
-						<button class="btn btn-primary" ng-click="offshell()">下架</button>
-						<button class="btn btn-primary" ng-click="edit()">编辑</button>
+						<button class="btn btn-primary" ng-click="onready($index)">即将上映</button>
+						<button class="btn btn-primary" ng-click="release($index)">上映</button>
+						<button class="btn btn-primary" ng-click="offshell($index)">下架</button>
+						<button class="btn btn-primary" ng-click="edit(data, $index)">编辑</button>
 					</td>
 				</tr>
 			</tbody>
