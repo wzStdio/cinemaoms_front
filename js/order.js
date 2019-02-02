@@ -73,12 +73,12 @@ App.controller('orderController', function ($scope, $http) {
 	}]
 
 	// 表格完成按钮
-	$scope.finish = function(data) {
-		window.alert(data + ' Finish')
+	$scope.finish = function(index) {
+		this.table_rows[index].order_status = 2
 	}
 
 	// 表格关闭按钮
-	$scope.close = function(data) {
-		window.alert(data + ' Close')
+	$scope.close = function(index) {
+		this.table_rows[index].order_status = 3
 	}
 })

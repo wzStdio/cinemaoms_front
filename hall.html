@@ -96,8 +96,8 @@
 								<tr ng-repeat="seat_row in obj.seats">
 									<td ng-repeat="seat in seat_row track by $index">
 										<!-- <img src="img/{{seat.disable}}.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 'seat_disable')"> -->
-										<img src="img/seat_able.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 1)">
-										<img src="img/seat_disable.png" ng-if="seat.disable==1" ng-click="changeDisable(seat.row, seat.col, 0)">
+										<img class="imgStyle" src="img/seat_able.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 1)">
+										<img class="imgStyle" src="img/seat_unable.png" ng-if="seat.disable==1" ng-click="changeDisable(seat.row, seat.col, 0)">
 									</td>
 								</tr>
 							</table>

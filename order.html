@@ -64,8 +64,9 @@
 					<td ng-if="data.order_status == 2">已完成</td>
 					<td ng-if="data.order_status == 3">已关闭</td>
 					<td>
-						<button class="btn btn-primary" ng-click="finish(data.order_no)">完成</button>
-						<button class="btn btn-primary" ng-click="close(data.order_no)">关闭</button>
+						<button class="btn btn-primary" ng-if="data.order_status!=3" ng-click="finish($index)">完成</button>
+						<button class="btn btn-primary" ng-if="data.order_status!=3" ng-click="close($index)">关闭</button>
+						<button class="btn btn-secondary" ng-if="data.order_status==3">已关闭</button>
 					</td>
 				</tr>
 			</tbody>

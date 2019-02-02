@@ -76,20 +76,26 @@ App.controller('hallController', function ($scope, $http) {
 		'seats': null
 	}
 
-	$scope.initseat = function(row, col) {
+	$scope.initseat = function(row, col, seats) {
 		var newseat = []
-		for (var i = 0; i < row; i++) {
-			var seat_row = []
-			for (var j = 0; j < col; j++) {
-				var aseat = {
-					'row': i,
-					'col': j,
-					'disable': 0
+		// 如果座位表不存在
+		if (seats == null) {
+			for (var i = 0; i < row; i++) {
+				var seat_row = []
+				for (var j = 0; j < col; j++) {
+					var aseat = {
+						'row': i,
+						'col': j,
+						'disable': 0
+					}
+					seat_row.push(aseat)
 				}
-				seat_row.push(aseat)
+				newseat.push(seat_row)
 			}
-			newseat.push(seat_row)
+		} else {	//座位表存在
+			newseat = seats
 		}
+
 		this.obj.seats = newseat
 	}
 
@@ -110,8 +116,10 @@ App.controller('hallController', function ($scope, $http) {
 		this.obj.seat_col = data.seat_col
 		this.obj.seat_num = data.seat_num
 		this.obj.seat_status = data.seat_status
+		this.obj.seats = data.seats
 		this.obj.edit_type = 1
 		this.obj.edit_index = edit_index
+		this.initseat(data.seat_row, data.seat_col, data.seats)
 		// console.log(this.obj)
 		$('#myModal').modal('show')
 	}
@@ -137,12 +145,12 @@ App.controller('hallController', function ($scope, $http) {
 			'seat_col': obj.seat_col,
 			'seat_num': obj.seat_num,
 			'seat_status': obj.seat_status,
+			'seats': obj.seats
 		}
 		// console.log(data)
 		if (obj.edit_type==0) {
 			this.table_rows.push(data)
 		} else if (obj.edit_type==1) {
-			console.log('edit')
 			this.table_rows[obj.edit_index] = data
 		}
 		// this.reset()
