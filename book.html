@@ -6,6 +6,8 @@
 	<link rel="icon" type="image/x-icon" href="img/index_favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/book.css">
+	<script src="js/jquery/jquery-3.3.1.js"></script>
+	<!-- <script src="js/bootstrap/popper.js"></script> -->
 	<script src="js/bootstrap/bootstrap.js"></script>
 	<script src="js/angular/angular.js"></script>
 	<!-- <script src="js/route.js"></script> -->
@@ -40,6 +42,41 @@
 	<div class="divStyle">
 		<h2 class="h2Style">预定管理</h2>
 		<input class="inputStyle" type="text" ng-model="search" placeholder="Search">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal" ng-model="obj">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<!-- 模态框标题 -->
+						<h4 class="modal-title">新增影厅</h4>
+						<!-- 右上角关闭按钮 -->
+						<button type="button" class="close" ng-click="close()">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<!-- 座位图表 -->
+						<div class="form-group">
+							<label class="form-inline">影厅座位表：</label>
+							<table>
+								<tr ng-repeat="seat_row in obj.seats">
+									<td ng-repeat="seat in seat_row track by $index">
+										<!-- <img src="img/{{seat.disable}}.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 'seat_disable')"> -->
+										<img class="imgStyle" src="img/seat_unable.png" ng-if="seat.disable==2">
+										<img class="imgStyle" src="img/seat_able.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 1)">
+										<img class="imgStyle" src="img/seat_disable.png" ng-if="seat.disable==1" ng-click="changeDisable(seat.row, seat.col, 0)">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button class="btn btn-primary" ng-click="save()">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- 表格 -->
@@ -57,7 +94,7 @@
 					<td>{{data.movie_time}}</td>
 					<td>{{data.scene_name}}</td>
 					<td>
-						<button class="btn btn-primary" ng-click="edit()">编辑</button>
+						<button class="btn btn-primary" ng-click="edit(data, $index)">编辑</button>
 					</td>
 				</tr>
 			</tbody>

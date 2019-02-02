@@ -76,6 +76,7 @@ App.controller('hallController', function ($scope, $http) {
 		'seats': null
 	}
 
+	// 座位表初始化
 	$scope.initseat = function(row, col, seats) {
 		var newseat = []
 		// 如果座位表不存在
@@ -95,7 +96,6 @@ App.controller('hallController', function ($scope, $http) {
 		} else {	//座位表存在
 			newseat = seats
 		}
-
 		this.obj.seats = newseat
 	}
 
@@ -176,6 +176,7 @@ App.controller('hallController', function ($scope, $http) {
 		this.obj.seat_status = i
 	}
 
+	// 点击座位图标，图标颜色变换
 	$scope.changeDisable = function(parent_index, index, i) {
 		// console.log(parent_index + ' ' + index + ' ' + i)
 		this.obj.seats[parent_index][index].disable = i
