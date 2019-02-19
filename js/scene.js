@@ -157,6 +157,7 @@ App.controller('sceneController', function ($scope, $http) {
 		this.obj.edit_index =null
 	}
 
+	// 更改场次状态函数
 	$scope.changeStatus = function(i) {
 		this.obj.scene_status = i
 	}
