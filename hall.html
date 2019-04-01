@@ -58,26 +58,26 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-inline">影厅名称：
-								<input class="form-control" type="text" value="{{obj.scene_name}}" ng-model="obj.scene_name">
+								<input class="form-control" type="text" value="{{obj.hallName}}" ng-model="obj.hallName">
 							</label>
 						</div>
 						<div class="form-group">
 							<label class="form-inline">座位行：
-								<input class="form-control modalinputStyle" type="number" value="{{obj.seat_row}}" ng-model="obj.seat_row">
+								<input class="form-control modalinputStyle" type="number" value="{{obj.seatRow}}" ng-model="obj.seatRow">
 							</label>
 							<label class="form-inline">座位列：
-								<input class="form-control modalinputStyle" type="number" value="{{obj.seat_col}}" ng-model="obj.seat_col">
+								<input class="form-control modalinputStyle" type="number" value="{{obj.seatCol}}" ng-model="obj.seatCol">
 							</label>
 						</div>
 						<div class="form-group">
 							<label class="form-inline">座位总数：
-								<input class="form-control" type="number" value="{{obj.seat_num}}" ng-model="obj.seat_num">
+								<input class="form-control" type="number" value="{{obj.seatNum}}" ng-model="obj.seatNum">
 							</label>
 						</div>
 						<div class="form-group dropdown">
 							<label class="form-inline">影厅状态：
-								<label class="labelStyle" ng-if="obj.seat_status==1">使用中</label>
-								<label class="labelStyle" ng-if="obj.seat_status==2">维护中</label>
+								<label class="labelStyle" ng-if="obj.hallStatus==1">使用中</label>
+								<label class="labelStyle" ng-if="obj.hallStatus==2">维护中</label>
 								<button class="btn btn-primary dropdown-toggle ml-auto" data-toggle="dropdown">点击选择影厅状态</button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item" ng-click="changeStatus(1)">使用中</a>
@@ -88,11 +88,11 @@
 						<!-- 座位图表 -->
 						<div class="form-group">
 							<label class="form-inline">影厅座位表：
-								<button class="btn btn-primary" ng-click="initseat(obj.seat_row, obj.seat_col)">生成座位表</button>
+								<button class="btn btn-primary" ng-click="initseat(obj.seatRow, obj.seatCol)">生成座位表</button>
 							</label>
 							<table>
-								<tr ng-repeat="seat_row in obj.seats">
-									<td ng-repeat="seat in seat_row track by $index">
+								<tr ng-repeat="seatRow in obj.seats">
+									<td ng-repeat="seat in seatRow track by $index">
 										<!-- <img src="img/{{seat.disable}}.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 'seat_disable')"> -->
 										<img class="imgStyle" src="img/seat_able.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 2)">
 										<img class="imgStyle" src="img/seat_disable.png" ng-if="seat.disable==1" ng-click="changeDisable(seat.row, seat.col, 0)">
@@ -121,12 +121,12 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="data in table_rows | filter:search">
-					<td>{{data.scene_name}}</td>
-					<td>{{data.seat_row}}</td>
-					<td>{{data.seat_col}}</td>
-					<td>{{data.seat_num}}</td>
-					<td ng-if="data.seat_status == 1">使用中</td>
-					<td ng-if="data.seat_status == 2">维护中</td>
+					<td>{{data.hallName}}</td>
+					<td>{{data.seatRow}}</td>
+					<td>{{data.seatCol}}</td>
+					<td>{{data.seatNum}}</td>
+					<td ng-if="data.hallStatus == 1">使用中</td>
+					<td ng-if="data.hallStatus == 2">维护中</td>
 					<td>
 						<button class="btn btn-primary" ng-click="use($index)">使用</button>
 						<button class="btn btn-primary" ng-click="maintain($index)">维护</button>

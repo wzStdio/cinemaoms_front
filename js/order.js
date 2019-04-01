@@ -130,8 +130,8 @@ App.controller('orderController', function ($scope, $http) {
 
 			// 更新表格数据
 			$scope.table_rows = res
-        }, function errorCallback(response) {
-            alert('获取数据失败')
-            console.log(response)
-    })
+		}, function errorCallback(response) {
+			alert('获取数据失败')
+			console.log(response)
+	})
 })

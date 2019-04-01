@@ -59,8 +59,8 @@
 						<div class="form-group">
 							<label class="form-inline">影厅座位表：</label>
 							<table>
-								<tr ng-repeat="seat_row in obj.seats">
-									<td ng-repeat="seat in seat_row track by $index">
+								<tr ng-repeat="seatRow in obj.seats">
+									<td ng-repeat="seat in seatRow track by $index">
 										<!-- <img src="img/{{seat.disable}}.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 'seat_disable')"> -->
 										<img class="imgStyle" src="img/seat_unable.png" ng-if="seat.disable==2">
 										<img class="imgStyle" src="img/seat_able.png" ng-if="seat.disable==0" ng-click="changeDisable(seat.row, seat.col, 1)">
@@ -89,10 +89,10 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="data in table_rows | filter:search">
-					<td>{{data.scene_no}}</td>
-					<td>{{data.movie_name}}</td>
-					<td>{{data.movie_time}}</td>
-					<td>{{data.scene_name}}</td>
+					<td>{{data.sceneNo}}</td>
+					<td>{{data.movieName}}</td>
+					<td>{{data.movieTime | date:'yyyy-MM-dd HH:mm'}}</td>
+					<td>{{data.hallName}}</td>
 					<td>
 						<button class="btn btn-primary" ng-click="edit(data, $index)">编辑</button>
 					</td>

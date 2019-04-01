@@ -60,24 +60,24 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-inline">电影名称：
-								<input class="form-control" type="text" value="{{obj.movie_name}}" ng-model="obj.movie_name">
+								<input class="form-control" type="text" value="{{obj.movieName}}" ng-model="obj.movieName">
 							</label>
 						</div>
 						<div class="form-group input-append date">
 							<label class="form-inline">上映时间：
-								<input class="form-control form_datetime" type="datetime" value="{{obj.movie_time}}" ng-model="obj.movie_time" readonly>
+								<input class="form-control form_datetime" type="datetime" value="{{obj.movieTime}}" ng-model="obj.movieTime">
 							</label>
 						</div>
 						<div class="form-group">
 							<label class="form-inline">电影时长：
-								<input class="form-control" type="number" value="{{obj.movie_duration}}" ng-model="obj.movie_duration">
+								<input class="form-control" type="number" value="{{obj.movieDuration}}" ng-model="obj.movieDuration">
 							</label>
 						</div>
 						<div class="form-group dropdown">
 							<label class="form-inline">电影状态：
-								<label class="labelStyle" ng-if="obj.movie_status==1">即将上映</label>
-								<label class="labelStyle" ng-if="obj.movie_status==2">上映中</label>
-								<label class="labelStyle" ng-if="obj.movie_status==3">已下架</label>
+								<label class="labelStyle" ng-if="obj.movieStatus==1">即将上映</label>
+								<label class="labelStyle" ng-if="obj.movieStatus==2">上映中</label>
+								<label class="labelStyle" ng-if="obj.movieStatus==3">已下架</label>
 								<button class="btn btn-primary dropdown-toggle ml-auto" data-toggle="dropdown">点击选择上映状态</button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item" ng-click="changeStatus(1)">即将上映</a>
@@ -107,13 +107,13 @@
 			<tbody>
 				<!-- 表格数据 -->
 				<tr ng-repeat="data in table_rows | filter:search">
-					<td>{{data.movie_no}}</td>
-					<td>{{data.movie_name}}</td>
-					<td>{{data.movie_time}}</td>
-					<td>{{data.movie_duration}}分钟</td>
-					<td ng-if="data.movie_status == 1">即将上映</td>
-					<td ng-if="data.movie_status == 2">上映中</td>
-					<td ng-if="data.movie_status == 3">已下架</td>
+					<td>{{data.movieNo}}</td>
+					<td>{{data.movieName}}</td>
+					<td>{{data.movieTime | date:'yyyy-MM-dd HH:mm'}}</td>
+					<td>{{data.movieDuration}}分钟</td>
+					<td ng-if="data.movieStatus == 1">即将上映</td>
+					<td ng-if="data.movieStatus == 2">上映中</td>
+					<td ng-if="data.movieStatus == 3">已下架</td>
 					<td>
 						<button class="btn btn-primary" ng-click="onready($index)">即将上映</button>
 						<button class="btn btn-primary" ng-click="release($index)">上映</button>
