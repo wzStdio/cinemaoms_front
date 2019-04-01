@@ -52,7 +52,7 @@
 					<!-- 模态框头部 -->
 					<div class="modal-header">
 						<!-- 模态框标题 -->
-						<h4 class="modal-title">新增场次</h4>
+						<h4 class="modal-title">场次操作</h4>
 						<!-- 右上角关闭按钮 -->
 						<button type="button" class="close" ng-click="close()">&times;</button>
 					</div>
@@ -60,29 +60,29 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-inline">电影名称：
-								<input class="form-control center-block" type="text" value="{{obj.movie_name}}" ng-model="obj.movie_name">
+								<input class="form-control center-block" type="text" value="{{obj.movieName}}" ng-model="obj.movieName">
 							</label>
 						</div>
 						<div class="form-group input-append date">
 							<label class="form-inline">播放时间：
-								<input class="form-control form_datetime" type="datetime" value="{{obj.movie_time}}" ng-model="obj.movie_time" readonly>
+								<input class="form-control form_datetime" type="datetime" value="{{obj.movieTime}}" ng-model="obj.movieTime">
 							</label>
 						</div>
 						<div class="form-group">
 							<label class="form-inline">影厅名称：
-								<input class="form-control" type="text" value="{{obj.scene_name}}" ng-model="obj.scene_name">
+								<input class="form-control" type="text" value="{{obj.hallName}}" ng-model="obj.hallName">
 							</label>
 						</div>
 						<div class="form-group">
 							<label class="form-inline">金额：
-								<input class="form-control priceStyle" type="number" value="{{obj.movie_price}}" ng-model="obj.movie_price">
+								<input class="form-control priceStyle" type="number" value="{{obj.moviePrice}}" ng-model="obj.moviePrice">
 							</label>
 						</div>
 						<div class="form-group dropdown">
 							<label class="form-inline">场次状态：
-								<label class="labelStyle" ng-if="obj.scene_status!=1 && obj.scene_status!=2">未选择</label>
-								<label class="labelStyle" ng-if="obj.scene_status==1">可预订</label>
-								<label class="labelStyle" ng-if="obj.scene_status==2">不可预订</label>
+								<label class="labelStyle" ng-if="obj.sceneStatus!=1 && obj.sceneStatus!=2">未选择</label>
+								<label class="labelStyle" ng-if="obj.sceneStatus==1">可预订</label>
+								<label class="labelStyle" ng-if="obj.sceneStatus==2">不可预订</label>
 								<button class="btn btn-primary dropdown-toggle ml-auto" data-toggle="dropdown">点击选择场次状态</button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item" ng-click="changeStatus(1)">可预订</a>
@@ -111,15 +111,15 @@
 			<tbody>
 				<!-- 表格数据 -->
 				<tr ng-repeat="data in table_rows | filter:search">
-					<td>{{data.scene_no}}</td>
-					<td>{{data.movie_name}}</td>
-					<td>{{data.movie_time}}</td>
-					<td>{{data.scene_name}}</td>
-					<td>￥{{data.movie_price}}</td>
-					<td ng-if="data.scene_status == 1">可预定</td>
-					<td ng-if="data.scene_status == 2">不可预定</td>
+					<td>{{data.sceneNo}}</td>
+					<td>{{data.movieName}}</td>
+					<td>{{data.movieTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{data.hallName}}</td>
+					<td>￥{{data.moviePrice}}</td>
+					<td ng-if="data.sceneStatus == 1">可预定</td>
+					<td ng-if="data.sceneStatus == 2">不可预定</td>
 					<td>
-						<button class="btn btn-primary" ng-click="edit(data, $index)">编辑</button>
+						<button class="btn btn-primary" ng-click="edit(data, $index);init()">编辑</button>
 					</td>
 				</tr>
 			</tbody>

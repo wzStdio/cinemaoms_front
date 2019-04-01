@@ -53,17 +53,17 @@
 			<tbody>
 				<!-- 表格数据 -->
 				<tr ng-repeat="data in table_rows | filter:search">
-					<td>{{data.order_no}}</td>
-					<td>{{data.scene_no}}</td>
+					<td>{{data.orderNo}}</td>
+					<td>{{data.sceneNo}}</td>
 					<td>
-						<label ng-repeat="seat in data.seat_no">{{seat}};</label>
+						<label ng-repeat="seat in data.seatNo">{{seat}};</label>
 					</td>
-					<td>{{data.order_name}}</td>
-					<td>{{data.order_phone}}</td>
-					<td>{{data.order_time}}</td>
-					<td ng-if="data.order_status == 1">待处理</td>
-					<td ng-if="data.order_status == 2">已完成</td>
-					<td ng-if="data.order_status == 3">已关闭</td>
+					<td>{{data.orderName}}</td>
+					<td>{{data.orderPhone}}</td>
+					<td>{{data.orderTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td ng-if="data.orderStatus == 1">待处理</td>
+					<td ng-if="data.orderStatus == 2">已完成</td>
+					<td ng-if="data.orderStatus == 3">已关闭</td>
 					<td>
 						<button class="btn btn-primary" ng-if="data.order_status!=3" ng-click="finish($index)">完成</button>
 						<button class="btn btn-primary" ng-if="data.order_status!=3" ng-click="close($index)">关闭</button>

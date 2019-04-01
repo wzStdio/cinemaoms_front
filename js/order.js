@@ -48,37 +48,90 @@ App.controller('orderController', function ($scope, $http) {
 	$scope.table_columns = ['订单编号','场次编号','座位号','预定姓名','电话号码','创建时间','状态','操作']
 
 	// 表格列数据
-	$scope.table_rows = [{
-		'order_no': '90048153',
-		'scene_no': '7004562',
-		'seat_no': [
+	$scope.table_rows = [
+	{
+		'orderNo': '90048153',
+		'sceneNo': '7004562',
+		'seatNo': [
 			'7排7座',
 			'7排8座'
 		],
-		'order_name': 'AAA',
-		'order_phone': '18000000000',
-		'order_time': '2019-01-10 13:00:19',
-		'order_status': 1,
+		'orderName': 'AAA',
+		'orderPhone': '18000000000',
+		'orderTime': '2019-01-10 13:00:19',
+		'orderStatus': 1,
 	},{
-		'order_no': '90048123',
-		'scene_no': '7004562',
-		'seat_no': [
+		'orderNo': '90048123',
+		'sceneNo': '7004562',
+		'seatNo': [
 			'9排7座',
 			'9排8座'
 		],
-		'order_name': 'BBB',
-		'order_phone': '180023100000',
-		'order_time': '2019-01-11 13:00:19',
-		'order_status': 2,
-	}]
+		'orderName': 'BBB',
+		'orderPhone': '180023100000',
+		'orderTime': '2019-01-11 13:00:19',
+		'orderStatus': 2,
+	}
+	]
 
 	// 表格完成按钮
 	$scope.finish = function(index) {
-		this.table_rows[index].order_status = 2
+		// this.table_rows[index].orderStatus = 2
+		this.operateOrderStatus(index, 2)
 	}
 
 	// 表格关闭按钮
 	$scope.close = function(index) {
-		this.table_rows[index].order_status = 3
+		// this.table_rows[index].orderStatus = 3
+		this.operateOrderStatus(index, 3)
 	}
+
+	$scope.operateOrderStatus = function(index, status) {
+		$http({
+			method: 'POST',
+			url: 'http://localhost:9033/cinema/api/order/operateOrderStatus',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			data: {
+				'account': 'admin',
+				'orderNo': $scope.table_rows[index].orderNo,
+				'orderStatus': status
+			}
+		}).then(function successCallback(response) {
+			// console.log(response)
+			$scope.table_rows[index].orderStatus = status
+		}), function errorCallback(response) {
+			alert('操作失败')
+			console.log(response)
+		}
+	}
+
+	$http({
+		method: 'POST',
+		url: 'http://localhost:9033/cinema/api/order/getAllOrder',
+		headers: {
+			'Content-Type': 'application/json'
+ 		},
+		data: { 'uuid': 'test' }
+	}).then(function successCallback(response) {
+			var res = response.data.data
+			// 座位的转换
+			for (var i = 0; i < res.length; i++) {
+				// 座位转换
+				var seatStr = res[i].seatNo.split('-')
+				var seat = []
+				for (var j = 0; j < seatStr.length-1; j++) {
+					var Str = seatStr[j].substr(0,1) + "排" + seatStr[j].substr(1,1) + "座"
+					seat.push(Str)
+				}
+				res[i].seatNo = seat
+			}
+
+			// 更新表格数据
+			$scope.table_rows = res
+        }, function errorCallback(response) {
+            alert('获取数据失败')
+            console.log(response)
+    })
 })
