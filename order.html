@@ -56,7 +56,7 @@
 					<td>{{data.orderNo}}</td>
 					<td>{{data.sceneNo}}</td>
 					<td>
-						<label ng-repeat="seat in data.seatNo">{{seat}};</label>
+						<label ng-repeat="seat in data.seatNo">{{seat}}</label>
 					</td>
 					<td>{{data.orderName}}</td>
 					<td>{{data.orderPhone}}</td>
@@ -65,9 +65,9 @@
 					<td ng-if="data.orderStatus == 2">已完成</td>
 					<td ng-if="data.orderStatus == 3">已关闭</td>
 					<td>
-						<button class="btn btn-primary" ng-if="data.order_status!=3" ng-click="finish($index)">完成</button>
-						<button class="btn btn-primary" ng-if="data.order_status!=3" ng-click="close($index)">关闭</button>
-						<button class="btn btn-secondary" ng-if="data.order_status==3">已关闭</button>
+						<button class="btn btn-primary" ng-if="data.orderStatus!=3" ng-click="finish($index)">完成</button>
+						<button class="btn btn-primary" ng-if="data.orderStatus!=3" ng-click="close($index)">关闭</button>
+						<button class="btn btn-secondary" ng-if="data.orderStatus==3">已关闭</button>
 					</td>
 				</tr>
 			</tbody>

@@ -119,13 +119,13 @@ App.controller('orderController', function ($scope, $http) {
 			// 座位的转换
 			for (var i = 0; i < res.length; i++) {
 				// 座位转换
-				var seatStr = res[i].seatNo.split('-')
-				var seat = []
-				for (var j = 0; j < seatStr.length-1; j++) {
-					var Str = seatStr[j].substr(0,1) + "排" + seatStr[j].substr(1,1) + "座"
-					seat.push(Str)
+				var seat = JSON.parse(res[i].seatNo)[0]
+				var seatStr = []
+				for (var j = 0; j < seat.length; j++) {
+					var str = seat[j].row + "排" + seat[j].col + "列;"
+					seatStr.push(str)
 				}
-				res[i].seatNo = seat
+				res[i].seatNo = seatStr
 			}
 
 			// 更新表格数据
